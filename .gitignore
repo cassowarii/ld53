@@ -1,0 +1,5 @@
+packaging/*
+*.swp
+*.aseprite
+*.swo
+*.zip
