@@ -128,9 +128,6 @@ zb.ready(function() {
 
     game.resources_ready();
 
-    save_data = parseInt(game.load('level_num') || "1");
-    level_number = save_data;
-
     for (let i = 0; i < 26; i++) {
         make_cloud(Math.random() * (game.screen_w + 50) - 50);
     }
@@ -192,13 +189,17 @@ function save() {
             game.save('level_num', level_number + 1);
         }
     } catch (e) {
-        console.error("oops, can't save!");
+        console.error("oops, can't save!", e);
     }
 }
 
 function handle_gamestart(game) {
     console.log("Game start!");
     game.music.menu.play();
+
+    save_data = parseInt(game.load('level_num') || "1");
+    level_number = save_data;
+
 }
 
 let undo_stack = [];
@@ -1177,7 +1178,7 @@ function do_draw(ctx) {
         let btx = b.target_x || b.x;
         let bty = b.target_y || b.y;
 
-        return (a.y * (1 - amf) + atx * amf) - (b.y * (1 - bmf) + btx * bmf);
+        return (a.y * (1 - amf) + aty * amf) - (b.y * (1 - bmf) + bty * bmf);
     });
 
     for (let thing of animatable_things) {
